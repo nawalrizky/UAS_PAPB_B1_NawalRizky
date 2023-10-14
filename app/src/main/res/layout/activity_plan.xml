@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlanActivity"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="16dp"
+            >
+            <DatePicker
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:selectedWeekBackgroundColor="@color/black"
+                android:id="@+id/date_picker"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="16dp"
+            >
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:id="@+id/spinner_asal"
+                android:background="@drawable/spinner"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="16dp"
+            >
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:id="@+id/spinner_tujuan"
+                android:background="@drawable/spinner"/>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="16dp"
+            >
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:id="@+id/spinner_train_class"
+                android:background="@drawable/spinner"/>
+        </androidx.cardview.widget.CardView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ToggleButton
+                    android:id="@+id/toggleButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/toggle_button_background"
+                    android:checked="false"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:paddingHorizontal="15dp"
+                    android:text="Plus Lunch"
+                    android:textAllCaps="false"
+                    android:textOff="Plus Lunch"
+                    android:textOn="Plus Lunch"
+                    />
+
+                <ToggleButton
+                    android:id="@+id/toggleButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Window Seat"
+                    android:textOn="Window Seat"
+                    android:textOff="Window Seat"
+                    android:background="@drawable/toggle_button_background"
+                    android:checked="false"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="15dp"/>
+
+                <ToggleButton
+                    android:id="@+id/toggleButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Panoramic Carriage"
+                    android:textOn="Panoramic Carriage"
+                    android:textOff="Panoramic Carriage"
+                    android:background="@drawable/toggle_button_background"
+                    android:checked="false"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="15dp"/>
+
+                <ToggleButton
+                    android:id="@+id/toggleButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plus Dinner"
+                    android:textOn="Plus Dinner"
+                    android:textOff="Plus Dinner"
+                    android:background="@drawable/toggle_button_background"
+                    android:checked="false"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="15dp"/>
+                <ToggleButton
+                    android:id="@+id/toggleButton5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plus Pillow"
+                    android:textOn="Plus Pillow"
+                    android:textOff="Plus Pillow"
+                    android:background="@drawable/toggle_button_background"
+                    android:checked="false"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="15dp"/>
+                <ToggleButton
+                    android:id="@+id/toggleButton6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plus Blanket"
+                    android:textOn="Plus Blanket"
+                    android:textOff="Plus Blanket"
+                    android:background="@drawable/toggle_button_background"
+                    android:checked="false"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="15dp"/>
+                <ToggleButton
+                    android:id="@+id/toggleButton7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Extra luggage"
+                    android:textOn="Extra luggage"
+                    android:textOff="Extra luggage"
+                    android:background="@drawable/toggle_button_background"
+                    android:checked="false"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="15dp"/>
+
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="16dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Price : "
+                    android:fontFamily="@font/poppinssemibold"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="5dp"
+                    android:paddingVertical="10dp"
+                    android:textSize="18sp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/text_total_price"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:paddingVertical="10dp"
+                    android:textSize="18sp"
+                    />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_book"
+            android:text="Book Ticket"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_blue"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppinsbold"/>
+
+
+    </LinearLayout>
+
+</ScrollView>

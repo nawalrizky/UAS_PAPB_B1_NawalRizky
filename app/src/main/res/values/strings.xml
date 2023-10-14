@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Travel App</string>
+    <string-array name="origin_cities">
+        <item>Jakarta</item>
+        <item>Bandung</item>
+        <item>Yogyakarta</item>
+        <item>Surabaya</item>
+    </string-array>
+    <integer-array name="city_prices">
+    <item>10</item>
+    <item>20</item>
+    <item>30</item>
+        <item>10</item>
+    </integer-array>
+    <integer-array name="city_distances">
+    <item>80</item> <!-- Jarak Jakarta ke Bandung (dalam kilometer) -->
+    <item>150</item> <!-- Jarak Bandung ke Yogyakarta (dalam kilometer) -->
+    <item>120</item><item>80</item><!-- Jarak Yogyakarta ke Surabaya (dalam kilometer) -->
+
+</integer-array>
+    <string-array name="train_classes">
+        <item>Ekonomi</item>
+        <item>Bisnis</item>
+        <item>Eksekutif</item>
+        <item>Luxury</item>
+    </string-array>
+    <integer-array name="train_class_prices">
+        <item>10000</item>
+        <item>30000</item>
+        <item>50000</item>
+        <item>100000</item>
+        <!-- Tambahkan harga untuk pilihan lain sesuai kebutuhan -->
+    </integer-array>
+</resources>
