@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.travelapp.PlanActivity.Companion.EXTRA_DATE
 import com.example.travelapp.PlanActivity.Companion.EXTRA_DESTINATION
 import com.example.travelapp.PlanActivity.Companion.EXTRA_FROM
+import com.example.travelapp.PlanActivity.Companion.EXTRA_SELECTED_PACKAGES
 import com.example.travelapp.databinding.ActivityDashboardBinding
 
 
@@ -22,17 +23,17 @@ class DashboardActivity : AppCompatActivity() {
 
         with(binding){
             btnPlan.setOnClickListener {
-            navigateToPlanPage()
+                navigateToPlanPage()
             }
             val date = intent.getStringExtra(EXTRA_DATE)
             val from = intent.getStringExtra(EXTRA_FROM)
             val destination = intent.getStringExtra(EXTRA_DESTINATION)
+            val packages = intent.getStringArrayListExtra(EXTRA_SELECTED_PACKAGES)
 
             txtDate.text = " $date"
             txtFrom.text = "$from"
             txtDestination.text = " $destination"
-
-
+            txtPaket.text = packages?.joinToString(separator = ", ") { it } ?: "No packages selected"
         }
     }
     private fun navigateToPlanPage() {

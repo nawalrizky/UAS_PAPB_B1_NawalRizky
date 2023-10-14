@@ -1,5 +1,5 @@
 package com.example.travelapp
-import android.app.Activity
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,23 +10,30 @@ import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.appcompat.widget.AppCompatButton
-import com.example.travelapp.R
 import com.example.travelapp.databinding.ActivityPlanBinding
 
 class PlanActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityPlanBinding
+    private lateinit var binding: ActivityPlanBinding
     private lateinit var originCities: Array<String>
     private lateinit var cityPrices: IntArray
     private lateinit var cityDistances: IntArray
     private lateinit var trainClasses: Array<String>
     private lateinit var trainClassPrices: IntArray
     private lateinit var selectedDate: String
+    private var selectedOriginCity: String? = null
+    private var selectedDestinationCity: String? = null
+    private var selectedTrainClass: String? = null
+    private var additionalPrice = 0
+    private var selectedPackages: MutableList<String> = mutableListOf()
+
     companion object {
         const val EXTRA_DATE = "extra_date"
         const val EXTRA_FROM = "extra_from"
         const val EXTRA_DESTINATION = "extra_destination"
+        const val EXTRA_SELECTED_PACKAGES = "extra_selected_packages"
         const val REQUEST_CODE = 123
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlanBinding.inflate(layoutInflater)
@@ -34,7 +41,7 @@ class PlanActivity : AppCompatActivity() {
 
         with(binding) {
             originCities = resources.getStringArray(R.array.origin_cities)
-             cityPrices = resources.getIntArray(R.array.city_prices)
+            cityPrices = resources.getIntArray(R.array.city_prices)
             cityDistances = resources.getIntArray(R.array.city_distances)
 
             val adapter = ArrayAdapter(this@PlanActivity, android.R.layout.simple_spinner_item, originCities)
@@ -43,110 +50,104 @@ class PlanActivity : AppCompatActivity() {
             spinnerAsal.adapter = adapter
             spinnerTujuan.adapter = adapter
 
-             trainClasses = resources.getStringArray(R.array.train_classes)
+            trainClasses = resources.getStringArray(R.array.train_classes)
             trainClassPrices = resources.getIntArray(R.array.train_class_prices)
 
             val trainAdapter = ArrayAdapter(this@PlanActivity, android.R.layout.simple_spinner_item, trainClasses)
             trainAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            var selectedOriginCity: String? = null
-            var selectedDestinationCity: String? = null
-            var selectedTrainClass: String? = trainClasses[0] // Initialize to the first train class
+
             val datePicker = findViewById<DatePicker>(R.id.date_picker)
+            selectedDate = "${datePicker.dayOfMonth}/${datePicker.month + 1}/${datePicker.year}"
+
             datePicker.init(datePicker.year, datePicker.month, datePicker.dayOfMonth) { view, year, monthOfYear, dayOfMonth ->
                 selectedDate = "$dayOfMonth/${monthOfYear + 1}/$year"
             }
 
-            btnBook.setOnClickListener {
-                val intentToDashboardActivity =
-                    Intent(
-                        this@PlanActivity,
-                        DashboardActivity::class.java
-                    )
-                intentToDashboardActivity.putExtra(EXTRA_DATE, selectedDate)
-                intentToDashboardActivity.putExtra(EXTRA_FROM, selectedOriginCity)
-                intentToDashboardActivity.putExtra(EXTRA_DESTINATION, selectedDestinationCity)
-                startActivity(intentToDashboardActivity)
-                finish()
-            }
-
-
-
-            val toggleButton1 = findViewById<ToggleButton>(R.id.toggleButton1)
-            val toggleButton2 = findViewById<ToggleButton>(R.id.toggleButton2)
-            val toggleButton3 = findViewById<ToggleButton>(R.id.toggleButton3)
-            val toggleButton4 = findViewById<ToggleButton>(R.id.toggleButton4)
-            val toggleButton5 = findViewById<ToggleButton>(R.id.toggleButton5)
-            val toggleButton6 = findViewById<ToggleButton>(R.id.toggleButton6)
-            val toggleButton7 = findViewById<ToggleButton>(R.id.toggleButton7)
-
-
-            var additionalPrice = 0 //
-
             toggleButton1.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     additionalPrice += 10
+                    selectedPackages.add("Plus Lunch")
                 } else {
                     additionalPrice -= 10
+                    selectedPackages.remove("Plus Lunch")
                 }
-
                 updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
             }
 
             toggleButton2.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     additionalPrice += 20
+                    selectedPackages.add("Window Seat")
                 } else {
                     additionalPrice -= 20
+                    selectedPackages.remove("Window Seat")
                 }
-
                 updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
             }
-
             toggleButton3.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     additionalPrice += 20
+                    selectedPackages.add("Panoramic Carriage")
                 } else {
                     additionalPrice -= 20
+                    selectedPackages.remove("Panoramic Carriage")
                 }
-
                 updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
             }
-
             toggleButton4.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     additionalPrice += 20
+                    selectedPackages.add("Plus Dinner")
                 } else {
                     additionalPrice -= 20
+                    selectedPackages.remove("Plus Dinner")
                 }
-
                 updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
             }
             toggleButton5.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     additionalPrice += 20
+                    selectedPackages.add("Plus Pillow")
                 } else {
                     additionalPrice -= 20
+                    selectedPackages.remove("Plus Pillow")
                 }
-
                 updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
             }
             toggleButton6.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     additionalPrice += 20
+                    selectedPackages.add("Plus Blanket")
                 } else {
                     additionalPrice -= 20
+                    selectedPackages.remove("Plus Blanket")
                 }
-
                 updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
             }
             toggleButton7.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     additionalPrice += 20
+                    selectedPackages.add("Extra Luggage")
                 } else {
                     additionalPrice -= 20
+                    selectedPackages.remove("Extra Luggage")
                 }
-
                 updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
+            }
+
+
+
+            btnBook.setOnClickListener {
+                val intentToDashboardActivity = Intent(
+                    this@PlanActivity,
+                    DashboardActivity::class.java
+                )
+                intentToDashboardActivity.putExtra(EXTRA_DATE, selectedDate)
+                intentToDashboardActivity.putExtra(EXTRA_FROM, selectedOriginCity)
+                intentToDashboardActivity.putExtra(EXTRA_DESTINATION, selectedDestinationCity)
+                intentToDashboardActivity.putStringArrayListExtra(EXTRA_SELECTED_PACKAGES, ArrayList(selectedPackages))
+                startActivity(intentToDashboardActivity)
+                finish()
             }
 
 
@@ -162,7 +163,7 @@ class PlanActivity : AppCompatActivity() {
                     adapterTujuan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinnerTujuan.adapter = adapterTujuan
 
-                    updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices,additionalPrice)
+                    updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -172,8 +173,8 @@ class PlanActivity : AppCompatActivity() {
 
             spinnerTujuan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    selectedDestinationCity = originCities[position]
-                    updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices,additionalPrice)
+                    selectedDestinationCity = spinnerTujuan.selectedItem as String
+                    updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -186,7 +187,7 @@ class PlanActivity : AppCompatActivity() {
             spinnerTrainClass.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     selectedTrainClass = trainClasses[position]
-                    updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices,additionalPrice)
+                    updateTotalPrice(textTotalPrice, selectedOriginCity, selectedDestinationCity, selectedTrainClass, cityDistances, cityPrices, trainClassPrices, additionalPrice)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -216,7 +217,6 @@ class PlanActivity : AppCompatActivity() {
                 val cityPrice = cityPrices[originCityIndex] + cityPrices[destinationCityIndex]
                 val trainPrice = trainClassPrices[trainClassIndex]
                 val totalPrice = (distance * cityPrice) + trainPrice + additionalPrice
-
 
                 textTotalPrice.text = "Rp. $totalPrice"
             }
