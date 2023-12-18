@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"
+        android:id="@+id/homeFragment" />
+
+    <item
+        android:title="Ticket"
+        android:icon="@drawable/baseline_card_travel_24"
+        android:id="@+id/ticketFragment" />
+    <item
+        android:title="History"
+        android:icon="@drawable/round_history"
+        android:id="@+id/historyFragment" />
+    <item
+        android:title="Profile"
+        android:icon="@drawable/profile_icon"
+        android:id="@+id/profileFragment" />
+</menu>

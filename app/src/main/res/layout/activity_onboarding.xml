@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:gravity="center"
+    android:paddingTop="50dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/image_onboarding"
+            android:layout_width="230dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:scaleType="centerCrop"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/onboard" />
+
+        <TextView
+            android:id="@+id/text_Onboarding_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_onboarding"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="Selamat Datang di Travel App"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+           style="@style/text_bold"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/description_onboarding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_Onboarding_Title"
+            android:text="Rencanakan Petualangan Anda, Sekarang!"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            style="@style/text_medium"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/bg_rounded_top"
+        android:weightSum="10">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:textSize="16sp"
+            android:background="@drawable/bg_rounded"
+            android:backgroundTint="@color/secondary"
+            android:textAllCaps="false"
+            style="@style/button_bold"
+            android:text="Memulai Perjalanan"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textPolicyTerm"
+            style="@style/text_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="Melanjutkan penggunaan aplikasi ini berarti Anda menyetujui Syarat Penggunaan dan Kebijakan Privasi kami."
+            android:textColor="@color/black"
+            android:textSize="10dp" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

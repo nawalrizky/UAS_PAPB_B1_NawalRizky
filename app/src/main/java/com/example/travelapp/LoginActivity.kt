@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
                 if (validateLogin(username, password)) {
                     // Navigasi ke halaman utama setelah login berhasil
-                    navigateToDasboardPage()
+                    navigateToMainPage()
                 } else {
                     // Tampilkan pesan kesalahan jika login gagal
                     Toast.makeText(this@LoginActivity, "Login gagal. Periksa kredensial Anda.", Toast.LENGTH_SHORT).show()
@@ -43,8 +43,8 @@ class LoginActivity : AppCompatActivity() {
         return username == savedUsername && password == savedPassword
     }
 
-    private fun navigateToDasboardPage() {
-        val intent = Intent(this, DashboardActivity::class.java)
+    private fun navigateToMainPage() {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 }

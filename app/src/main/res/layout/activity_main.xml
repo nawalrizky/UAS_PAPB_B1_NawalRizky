@@ -1,44 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="407dp"
-        android:layout_marginTop="120dp"
-        app:srcCompat="@drawable/onboard" />
-
-    <TextView
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost = "true"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph ="@navigation/bottom_navigation"
+        />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="All your vacations destination are here, enjoy your holiday"
-        android:fontFamily="@font/poppinssemibold"
-        android:textAlignment="center"
-        android:paddingHorizontal="30dp"
-        android:textSize="15sp"
-        android:textColor="#949494"
-        android:layout_marginTop="50dp"
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_start"
-        android:text="Get Started"
-        android:textAllCaps="false"
-        android:fontFamily="@font/poppinsbold"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/btn_blue"
+        android:id="@+id/bottom_navigation_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@color/white"
+        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
+
         />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
