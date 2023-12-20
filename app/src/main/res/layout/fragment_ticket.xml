@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TicketFragment">
+    tools:context=".TicketFragment"
+    android:background="@color/background">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hallo" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!-- Your existing layout content goes here -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCardTicket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_result"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp"
+            tools:listitem="@layout/item_ticket_book" />
+
+    </LinearLayout>
+</ScrollView>

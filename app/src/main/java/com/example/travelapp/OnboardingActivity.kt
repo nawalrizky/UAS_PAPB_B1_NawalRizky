@@ -35,10 +35,10 @@ class OnBoardingActivity : AppCompatActivity() {
             // Your existing code for button click
             btnCreateAccount = binding.btnToRegister
             btnCreateAccount.setOnClickListener {
-                val intent = Intent(this, AuthActivity::class.java)
-                startActivity(intent)
+                // Skip the login screen and go directly to MainActivity
+                startActivity(Intent(this, AuthActivity::class.java))
+                finish()
             }
         }
     }
 }
-

@@ -1,6 +1,3 @@
-package com.example.travelapp
-
-import AuthViewModel
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -11,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.travelapp.MainActivity
 import com.example.travelapp.databinding.FragmentRegisterBinding
+import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.firebase.database.FirebaseDatabase
 
 class RegisterFragment : Fragment() {
     private val authViewModel: AuthViewModel by activityViewModels()
@@ -21,12 +21,14 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val calendar = Calendar.getInstance()
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -42,28 +44,9 @@ class RegisterFragment : Fragment() {
             if (validateInput(username, email, password, birthDate)) {
                 val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val birthDateDate = sdf.parse(birthDate)
-                val currentDate = Date()
-                val ageCalendar = Calendar.getInstance()
-                ageCalendar.time = birthDateDate
-                ageCalendar.add(Calendar.YEAR, 15)
 
-                if (currentDate.after(ageCalendar.time)) {
-                    // Usia memenuhi syarat
-                    // Simpan data pengguna ke SharedPreferences
-                    saveUserData(username, email, password, birthDate)
-
-                    // Signal the navigation event to the AuthViewModel
-                    authViewModel.navigateToLogin()
-
-                    // No need to manually navigate here
-                } else {
-                    // Tampilkan pesan kesalahan jika usia tidak memenuhi syarat
-                    Toast.makeText(
-                        requireContext(),
-                        "Usia harus minimal 15 tahun",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                // Register user with Firebase Authentication
+                registerUser(username,email, password, birthDateDate)
             }
         }
 
@@ -85,15 +68,41 @@ class RegisterFragment : Fragment() {
         return true
     }
 
-    private fun saveUserData(username: String, email: String, password: String, birthDate: String) {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
-            putString("username", username)
-            putString("email", email)
-            putString("password", password)
-            putString("birthDate", birthDate)
-            apply()
+    private fun registerUser(username: String,email: String, password: String, birthDate: Date) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Registration success
+                    saveUserData(username,email, password, birthDate)
+
+                    // Signal the navigation event to the AuthViewModel
+                    authViewModel.navigateToLogin()
+                } else {
+                    // Registration failed
+                    Toast.makeText(
+                        requireContext(),
+                        "Registrasi gagal. Periksa kembali informasi Anda.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+    }
+
+    private fun saveUserData(username: String, email: String, password: String, birthDate: Date) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null) {
+            val database = FirebaseDatabase.getInstance()
+            val usersRef = database.getReference("users")
+
+            val user = hashMapOf(
+                "username" to username,
+                "email" to email,
+                "password" to password,
+                "birthDate" to birthDate.toString(), // Store the birth date as a string for simplicity
+                // Add other user data as needed
+            )
+
+            usersRef.child(userId).setValue(user)
         }
     }
 

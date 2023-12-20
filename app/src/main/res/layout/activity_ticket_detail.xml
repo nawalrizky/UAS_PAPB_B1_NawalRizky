@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TicketDetailActivity"
+    android:background="@color/background">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="top"
+        android:background="@color/primary" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/bg_rounded_full"
+            android:src="@drawable/arrow_back" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/text_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:text="Detail Tiket"
+        android:textSize="24dp"
+
+        app:layout_anchor="@+id/relativeLayout"
+        app:layout_anchorGravity="center" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="100dp"
+        app:cardBackgroundColor="@color/white"
+
+        app:cardUseCompatPadding="true">
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
+
+            <ImageView
+
+                android:id="@+id/train_logo"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:paddingHorizontal="70dp"
+                android:src="@drawable/kai_logo" />
+
+            <LinearLayout
+                android:id="@+id/layout_jam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/train_logo"
+                android:gravity="center_horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="15dp"
+
+                >
+                <TextView
+                    android:id="@+id/jam_keberangkatan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11.00"
+                    android:textSize="22dp"
+                    style="@style/text_bold"/>
+                <TextView
+                    android:id="@+id/kota_keberangkatan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="JKT"
+                    style="@style/text_regular"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_train2" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="15dp"
+                >
+                <TextView
+                    android:id="@+id/jam_tiba"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11.00"
+                    android:textSize="22dp"
+                    style="@style/text_bold"/>
+                <TextView
+                    android:id="@+id/kota_tiba"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="JKT"
+                    style="@style/text_regular"/>
+            </LinearLayout>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/img_dash"
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_dash"
+                android:layout_below="@id/layout_jam"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_dash"
+                android:layout_marginHorizontal="40dp"
+                android:id="@+id/layout_jadwal">
+
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:textAlignment="textStart"
+               android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_outline"
+                android:padding="10dp"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/calendar" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+                    style="@style/text_regular"
+                    android:text="Keberangkatan"
+                    android:textSize="10dp" />
+
+            </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/text_semibold"
+                    android:textAlignment="center"
+                    android:textSize="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/secondary"
+                    android:text="Jumat, 20 Des 23"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:textAlignment="textStart"
+               android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_outline"
+                android:padding="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/clock_outline" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="5dp"
+                        style="@style/text_regular"
+                        android:text="Waktu"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/text_semibold"
+                    android:textAlignment="center"
+                    android:textSize="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/secondary"
+                    android:text="16:45 WIB"/>
+            </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_identitas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="40dp"
+                android:layout_below="@+id/layout_jadwal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama : "
+                    style="@style/text_semibold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nawal Rizky"
+                        style="@style/text_regular"/>
+                </LinearLayout>
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NIK       : "
+                            style="@style/text_semibold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="39029302839041"
+                            style="@style/text_regular"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kode   : "
+                            style="@style/text_semibold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SRQ2W14"
+                            style="@style/text_regular"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_petunjuk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_identitas"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_marginRight="35dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jalur"
+                        style="@style/text_semibold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="14sp"
+                        style="@style/text_bold"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:layout_marginRight="35dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kursi"
+                        style="@style/text_semibold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10C"
+                        android:textSize="14sp"
+                        style="@style/text_bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kelas"
+                        style="@style/text_semibold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ekonomi"
+                        android:textSize="14sp"
+                        style="@style/text_bold"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/img_dash2"
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_dash"
+                android:layout_below="@id/layout_petunjuk"/>
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/barcode"
+                android:layout_below="@id/img_dash2"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</ScrollView>

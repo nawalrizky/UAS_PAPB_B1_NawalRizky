@@ -1,5 +1,3 @@
-package com.example.travelapp
-import AuthViewModel
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -7,18 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.travelapp.MainActivity
 import com.example.travelapp.databinding.FragmentLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
     private val authViewModel: AuthViewModel by viewModels()
+    private lateinit var auth: FirebaseAuth
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -27,6 +26,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -41,30 +41,15 @@ class LoginFragment : Fragment() {
             checkBoxRememberMe.isChecked = sharedPreferences.getBoolean("rememberMe", false)
 
             btnLogin.setOnClickListener {
-                val username = editTxtUsername.text.toString()
+                val email = editTxtEmail.text.toString()
                 val password = editTxtPassword.text.toString()
                 val rememberMe = checkBoxRememberMe.isChecked
 
-                if (validateLogin(username, password)) {
-                    // Save the state of the Remember Me checkbox to SharedPreferences
-                    with(sharedPreferences.edit()) {
-                        putBoolean("rememberMe", rememberMe)
-                        apply()
-                    }
-
-                    // Navigasi ke halaman utama setelah login berhasil
-                    authViewModel.navigateToLogin()
-                } else {
-                    // Tampilkan pesan kesalahan jika login gagal
-                    Toast.makeText(
-                        requireContext(),
-                        "Login gagal. Periksa kredensial Anda.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                // Perform Firebase Authentication
+                loginUser(email, password, rememberMe)
             }
 
-            // Tambahkan logika untuk menampilkan/menyembunyikan kata sandi (opsional) di sini.
+            // Add logic to show/hide the password (optional) here.
         }
 
         // Observe the navigation event
@@ -76,13 +61,27 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun validateLogin(username: String, password: String): Boolean {
-        // Ambil data pengguna yang telah terdaftar dari SharedPreferences
-        val savedUsername = sharedPreferences.getString("username", "")
-        val savedPassword = sharedPreferences.getString("password", "")
+    private fun loginUser(email: String, password: String, rememberMe: Boolean) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Save the state of the Remember Me checkbox to SharedPreferences
+                    with(sharedPreferences.edit()) {
+                        putBoolean("rememberMe", rememberMe)
+                        apply()
+                    }
 
-        // Validasi login
-        return username == savedUsername && password == savedPassword
+                    // Navigation to the main page after successful login
+                    authViewModel.navigateToLogin()
+                } else {
+                    // Display an error message if login fails
+                    Toast.makeText(
+                        requireContext(),
+                        "Login failed. Check your credentials.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 
     private fun navigateToMainPage() {
