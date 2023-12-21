@@ -16,7 +16,7 @@
 
         app:cardBackgroundColor="@color/white"
 
-       >
+        >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,19 +26,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp">
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/kai_logo"/>
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/kai_logo"/>
 
-            <TextView
-                android:id="@+id/nama_kereta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:text="PT. Kereta Api Indonesia" />
+                <TextView
+                    android:id="@+id/nama_kereta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="PT. Kereta Api Indonesia" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/layout_hour"
@@ -46,45 +46,45 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout_title"
                 >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginHorizontal="15dp"
-
-                >
-            <TextView
-                android:id="@+id/jam_keberangkatan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="11.00"
-                android:textSize="22dp"
-                style="@style/text_bold"/>
-                <TextView
-                    android:id="@+id/kode_stasiun_keberangkatan"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="JKT"
-                    style="@style/text_regular"/>
-            </LinearLayout>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-                <ImageView
-                    android:id="@+id/img_train"
-                    android:layout_width="160dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/img_train" />
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="15dp"
 
-                <TextView
-                    android:id="@+id/waktu_perjalanan"
+                    >
+                    <TextView
+                        android:id="@+id/jam_keberangkatan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="11.00"
+                        android:textSize="22dp"
+                        style="@style/text_bold"/>
+                    <TextView
+                        android:id="@+id/kode_stasiun_keberangkatan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="JKT"
+                        style="@style/text_regular"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5j 30m"
-                    android:layout_gravity="center_horizontal"
-                    />
-</LinearLayout>
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/img_train"
+                        android:layout_width="160dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/img_train" />
+
+                    <TextView
+                        android:id="@+id/waktu_perjalanan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5j 30m"
+                        android:layout_gravity="center_horizontal"
+                        />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -144,17 +144,17 @@
                     android:textColor="@color/gray"/>
             </LinearLayout>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_beli"
+                android:id="@+id/btn_detail"
                 android:layout_below="@+id/img_dash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_txt_secondary"
-            android:text="Beli Tiket"
-            android:textColor="@color/secondary"
-            android:layout_marginRight="7dp"
-            android:textSize="16dp"
-            android:layout_alignParentEnd="true"
-            style="@style/text_semibold"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_txt_secondary"
+                android:text="Lihat Detail"
+                android:textColor="@color/secondary"
+                android:layout_marginRight="7dp"
+                android:textSize="16dp"
+                android:layout_alignParentEnd="true"
+                style="@style/text_semibold"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

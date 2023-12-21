@@ -26,7 +26,7 @@
         android:layout_marginTop="30dp">
 
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/btn_back3"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
@@ -92,7 +92,7 @@
                     android:textSize="22dp"
                     style="@style/text_bold"/>
                 <TextView
-                    android:id="@+id/kota_keberangkatan"
+                    android:id="@+id/kode_stasiun_keberangkatan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="JKT"
@@ -117,7 +117,7 @@
                     android:textSize="22dp"
                     style="@style/text_bold"/>
                 <TextView
-                    android:id="@+id/kota_tiba"
+                    android:id="@+id/kode_stasiun_tujuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="JKT"
@@ -169,6 +169,7 @@
 
             </LinearLayout>
                 <TextView
+                    android:id="@+id/tanggal_berangkat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/text_semibold"
@@ -208,6 +209,7 @@
 
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/jam_berangkat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/text_semibold"
@@ -238,9 +240,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nama : "
+                    android:text="Nama  : "
                     style="@style/text_semibold"/>
                     <TextView
+                        android:id="@+id/nama_penumpang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nawal Rizky"
@@ -258,9 +261,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="NIK       : "
+                            android:text="NIK        : "
                             style="@style/text_semibold"/>
                         <TextView
+                            android:id="@+id/nomor_identitas"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="39029302839041"
@@ -278,12 +282,34 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kode   : "
+                            android:text="Harga  : "
                             style="@style/text_semibold"/>
+                        <TextView
+                            android:id="@+id/harga"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            style="@style/text_regular"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SRQ2W14"
+                            android:text="Kereta : "
+                            style="@style/text_semibold"/>
+                        <TextView
+                            android:id="@+id/nama_kereta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="39029302839041"
                             style="@style/text_regular"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -348,12 +374,14 @@
                         android:text="Kelas"
                         style="@style/text_semibold"/>
                     <TextView
+                        android:id="@+id/kelas_kereta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ekonomi"
                         android:textSize="14sp"
                         style="@style/text_bold"/>
                 </LinearLayout>
+
 
             </LinearLayout>
             <ImageView

@@ -45,9 +45,11 @@
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
                 android:textAllCaps="false"
+                style="@style/text_regular"
                 android:text="Pilih Stasiun"
                 android:background="@color/white"
                 android:layout_margin="5dp"
+                android:stateListAnimator="@null"
               />
             </LinearLayout>
         </LinearLayout>
@@ -90,10 +92,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="40dp"
+                    style="@style/text_regular"
                     android:textAllCaps="false"
                     android:text="Pilih Stasiun"
                     android:background="@color/white"
                     android:layout_margin="5dp"
+                    android:stateListAnimator="@null"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -138,6 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
+                style="@style/text_regular"
                 android:background="@color/white"
                 android:layout_margin="5dp"
                />
@@ -181,6 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="40dp"
+                    style="@style/text_regular"
                     android:background="@color/white"
                     android:layout_margin="5dp"
                     />

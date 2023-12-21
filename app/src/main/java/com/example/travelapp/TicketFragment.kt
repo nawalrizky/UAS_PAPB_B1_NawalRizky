@@ -6,43 +6,69 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.travelapp.database.pesanan.PesananAdapter
+import com.example.travelapp.database.pesanan.dataPesanan
 import com.example.travelapp.databinding.FragmentTicketBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class TicketFragment : Fragment() {
 
     private lateinit var binding: FragmentTicketBinding
-    private val bookedTicketList = mutableListOf<Ticket>()
+    private lateinit var pesananAdapter: PesananAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTicketBinding.inflate(inflater, container, false)
+
+        // Initialize RecyclerView and Adapter
+        pesananAdapter = PesananAdapter(requireContext())
+        binding.rvCardTicket.layoutManager = LinearLayoutManager(context)
+        binding.rvCardTicket.adapter = pesananAdapter
+
+        // Fetch actual pesanan data from Firestore
+        getActualPesananData()
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    // Function to fetch actual pesanan data from Firestore
+    private fun getActualPesananData() {
+        val pesananList = mutableListOf<dataPesanan>()
 
-        // Assume you have a function to get booked tickets
-        bookedTicketList.addAll(getBookedTickets())
+        // Get reference to Firestore instance
+        val db = FirebaseFirestore.getInstance()
 
-        val adapter = TicketAdapter(bookedTicketList)
-        binding.rvCardTicket.adapter = adapter
-        binding.rvCardTicket.layoutManager = LinearLayoutManager(context)
-    }
+        // Replace "pesanan" with the actual name of your collection in Firestore
+        db.collection("pesanan")
+            .get()
+            .addOnSuccessListener { result ->
+                val currentDate = Calendar.getInstance().time
 
-    // Sample function to get booked tickets
-    private fun getBookedTickets(): List<Ticket> {
-        return listOf(
-            Ticket(
-                jamBerangkat = "08.00",
-                jamTiba = "11.00",
-                stasiunAsal = "JKT",
-                stasiunTujuan = "BDG",
-                hargaTiket = "150.000"
-            ),
-            // Add other booked tickets as needed
-        )
+                for (document in result) {
+                    // Convert Firestore document to your dataPesanan object
+                    val pesanan = document.toObject(dataPesanan::class.java)
+
+                    // Convert tanggalBerangkat to Date
+                    val tanggalBerangkatDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        .parse(pesanan.tanggalBerangkat)
+
+                    // Check if the tanggalBerangkat is after or equal to currentDate
+                    if (tanggalBerangkatDate != null && tanggalBerangkatDate >= currentDate) {
+                        pesananList.add(pesanan)
+                    }
+                }
+
+                // Update the adapter with the fetched data
+                pesananAdapter.submitList(pesananList)
+            }
+            .addOnFailureListener { exception ->
+                // Handle errors here
+                // You might want to log the error or display a message to the user
+            }
     }
 }

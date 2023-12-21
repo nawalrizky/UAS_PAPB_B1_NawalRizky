@@ -1,59 +1,73 @@
 package com.example.travelapp
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.travelapp.database.pesanan.PesananAdapter
+import com.example.travelapp.database.pesanan.dataPesanan
+import com.example.travelapp.databinding.FragmentHistoryBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HistoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HistoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentHistoryBinding
+    private lateinit var pesananAdapter: PesananAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        binding = FragmentHistoryBinding.inflate(inflater, container, false)
+
+        // Initialize RecyclerView and Adapter
+        pesananAdapter = PesananAdapter(requireContext())
+        binding.rvCardTicket.layoutManager = LinearLayoutManager(context)
+        binding.rvCardTicket.adapter = pesananAdapter
+
+        // Fetch history pesanan data from Firestore
+        getHistoryPesananData()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HistoryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HistoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    // Function to fetch history pesanan data from Firestore
+    private fun getHistoryPesananData() {
+        val historyPesananList = mutableListOf<dataPesanan>()
+
+        // Get reference to Firestore instance
+        val db = FirebaseFirestore.getInstance()
+
+        // Replace "pesanan" with the actual name of your collection in Firestore
+        db.collection("pesanan")
+            .get()
+            .addOnSuccessListener { result ->
+                val currentDate = Calendar.getInstance().time
+
+                for (document in result) {
+                    // Convert Firestore document to your dataPesanan object
+                    val pesanan = document.toObject(dataPesanan::class.java)
+
+                    // Convert tanggalBerangkat to Date
+                    val tanggalBerangkatDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        .parse(pesanan.tanggalBerangkat)
+
+                    // Check if the tanggalBerangkat is before currentDate
+                    if (tanggalBerangkatDate != null && tanggalBerangkatDate < currentDate) {
+                        historyPesananList.add(pesanan)
+                    }
                 }
+
+                // Update the adapter with the fetched data
+                pesananAdapter.submitList(historyPesananList)
+            }
+            .addOnFailureListener { exception ->
+                // Handle errors here
+                // You might want to log the error or display a message to the user
             }
     }
 }

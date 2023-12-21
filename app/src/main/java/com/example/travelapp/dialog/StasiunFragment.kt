@@ -19,10 +19,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class StasiunFragment : BottomSheetDialogFragment() {
-
+    internal var stasiunSelectionListener: StasiunSelectionListener? = null
+    private var selectedStasiun: Stasiun? = null
     private val binding by lazy {
         FragmentBottomRecyclerBinding.inflate(layoutInflater)
     }
+
 
     private lateinit var stasiunViewModel: StasiunSpinnerViewModel
 
@@ -38,7 +40,7 @@ class StasiunFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.textViewSheetTitle.text = "Pilih Stasiun"
-        binding.searchBarBottomSheet.hint = "Cari Stasiun"
+
 
         // Create StasiunRepository
         val stasiunRepository = StasiunRepository()
@@ -53,7 +55,7 @@ class StasiunFragment : BottomSheetDialogFragment() {
     }
 
     private fun fetchStasiunApi() {
-        // Tidak menggunakan TokenManager
+
         val stasiunRepository = StasiunRepository()
 
         stasiunRepository.getStations(object : Callback<List<Stasiun>> {
@@ -65,6 +67,11 @@ class StasiunFragment : BottomSheetDialogFragment() {
                     if (data != null) {
                         setupRecycler(data)
                         binding.progressIndicatorSheet.visibility = View.GONE
+
+                        // Set the first station as the selected station initially
+                        if (data.isNotEmpty()) {
+                            selectedStasiun = data[0]
+                        }
                     } else {
                         Log.w("StasiunSheetFragment", "onResponse: data is null")
                     }
@@ -81,15 +88,18 @@ class StasiunFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupRecycler(stasiunList: List<Stasiun>) {
-        Log.d("StasiunSheetFragment", "setupRecycler: $stasiunList")
+        // Sort the stasiunList in ascending order by station name
+        val sortedStasiunList = stasiunList.sortedBy { it.name }
 
         with(binding) {
             recyclerViewSheet.apply {
                 adapter = StasiunAdapter(
-                    stasiunList = stasiunList,
+                    stasiunList = sortedStasiunList,
                     onClickItemListener = {
                         Log.d("StasiunSheetFragment", "setupRecycler: $it")
-                        stasiunViewModel.selectStasiun(it)
+
+                        // Set the selected station's name to the button
+                        stasiunSelectionListener?.onStasiunSelected(it)
                         dismiss()
                     }
                 )

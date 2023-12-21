@@ -52,7 +52,7 @@
         android:id="@+id/text_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Showing 18 Results"
+        android:text="Showing  Results"
         android:textSize="16dp"
         android:layout_marginHorizontal="20dp"
         style="@style/text_bold"/>

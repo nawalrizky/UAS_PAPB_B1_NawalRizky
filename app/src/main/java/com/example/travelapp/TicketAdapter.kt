@@ -57,7 +57,13 @@ class TicketAdapter(
         }
 
         holder.btnBeli.setOnClickListener {
-            onItemClickListener?.onBeliClick(position)
+            // Launch the BookDetailActivity when the button is clicked
+            val intent = Intent(holder.itemView.context, BookDetailActivity::class.java)
+            // You can pass any necessary data to the BookDetailActivity using intent extras if needed
+            // intent.putExtra("key", "value")
+
+            // Start the activity
+            holder.itemView.context.startActivity(intent)
         }
     }
 

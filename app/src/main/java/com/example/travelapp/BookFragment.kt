@@ -10,20 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
+import android.widget.Toast
 import com.example.travelapp.api.stasiun.Stasiun
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.travelapp.databinding.FragmentBookBinding
 import com.example.travelapp.dialog.StasiunFragment
+import com.example.travelapp.dialog.StasiunSelectionListener
 import com.example.travelapp.dialog.viewmodel.StasiunSpinnerViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-
-class BookFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class BookFragment : Fragment(), DatePickerDialog.OnDateSetListener, StasiunSelectionListener {
     private lateinit var binding: FragmentBookBinding
     private var isStasiunAsalSelected = false
     private var isStasiunTujuanSelected = false
@@ -62,32 +60,43 @@ class BookFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             val stasiunAsal = binding.buttonAsal.text.toString()
             val stasiunTujuan = binding.buttonTujuan.text.toString()
             val kelasKereta = binding.spinnerKelas.selectedItem.toString()
+            val selectedDate = binding.editTxtTanggal.text.toString()
 
-            // Lakukan sesuatu dengan data yang dipilih, misalnya navigasi ke halaman selanjutnya
+            Log.d("BookFragment", "Cari Tiket button pressed. Stasiun Asal: $stasiunAsal, Stasiun Tujuan: $stasiunTujuan, Kelas Kereta: $kelasKereta, Selected Date: $selectedDate")
+
+            // Check if stations and date are selected
+            if (stasiunAsal.isNotEmpty() && stasiunTujuan.isNotEmpty() && selectedDate.isNotEmpty()) {
+                val intent = Intent(requireContext(), ListTicketActivity::class.java)
+                intent.putExtra("stasiunAsal", stasiunAsal)
+                intent.putExtra("stasiunTujuan", stasiunTujuan)
+                intent.putExtra("kelasKereta", kelasKereta)
+                intent.putExtra("selectedDate", selectedDate)
+                startActivity(intent)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Harap pilih stasiun asal, stasiun tujuan, dan tanggal keberangkatan",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
-
         binding.editTxtTanggal.setOnClickListener {
             showDatePickerDialog()
         }
         binding.btnSwap.setOnClickListener {
-            // Memperoleh teks dari button asal dan tujuan
-            val asalText = binding.buttonAsal.text.toString()
-            val tujuanText = binding.buttonTujuan.text.toString()
+            // Get text from the origin and destination buttons
+            val originText = binding.buttonAsal.text.toString()
+            val destinationText = binding.buttonTujuan.text.toString()
 
-            // Mengatur teks button asal dan tujuan
-            binding.buttonAsal.text = tujuanText
-            binding.buttonTujuan.text = asalText
+            // Swap the text on the origin and destination buttons
+            binding.buttonAsal.text = destinationText
+            binding.buttonTujuan.text = originText
         }
-
 
         binding.editTxtTanggal.setOnClickListener {
             showDatePickerDialog()
         }
-        binding.btnCariTiket.setOnClickListener {
-            // Intent untuk berpindah ke ListTicketActivity
-            val intent = Intent(requireContext(), ListTicketActivity::class.java)
-            startActivity(intent)
-        }
+
 
         stasiunAsalSpinner()
         stasiunTujuanSpinner()
@@ -108,39 +117,46 @@ class BookFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         datePickerDialog.show()
     }
 
+
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val selectedDate = dateFormat.format(calendar.time)
 
         binding.editTxtTanggal.setText(selectedDate)
     }
 
-
-
     private fun stasiunAsalSpinner() {
         binding.buttonAsal.setOnClickListener {
-            StasiunFragment().show(parentFragmentManager, "StasiunFragment")
+            val stasiunFragment = StasiunFragment()
+            stasiunFragment.stasiunSelectionListener = this
+            stasiunFragment.show(parentFragmentManager, "StasiunFragment")
             isStasiunAsalSelected = true
-            Log.d("BookFragment", "stasiunAsalSpinner. Asal is selected :$isStasiunAsalSelected")
+            Log.d("BookFragment", "stasiunAsalSpinner. Asal is selected: $isStasiunAsalSelected")
         }
-
-
     }
 
     private fun stasiunTujuanSpinner() {
         binding.buttonTujuan.setOnClickListener {
-            StasiunFragment().show(parentFragmentManager, "StasiunFragment")
+            val stasiunFragment = StasiunFragment()
+            stasiunFragment.stasiunSelectionListener = this
+            stasiunFragment.show(parentFragmentManager, "StasiunFragment")
             isStasiunTujuanSelected = true
-            Log.d("BookFragment", "stasiunTujuanSpinner. Tujuan is selected :$isStasiunTujuanSelected")
+            Log.d("BookFragment", "stasiunTujuanSpinner. Tujuan is selected: $isStasiunTujuanSelected")
         }
+    }
 
-
+    override fun onStasiunSelected(stasiun: Stasiun) {
+        if (isStasiunAsalSelected) {
+            binding.buttonAsal.text = stasiun.name
+            isStasiunAsalSelected = false
+        } else if (isStasiunTujuanSelected) {
+            binding.buttonTujuan.text = stasiun.name
+            isStasiunTujuanSelected = false
+        }
     }
 }
-
-

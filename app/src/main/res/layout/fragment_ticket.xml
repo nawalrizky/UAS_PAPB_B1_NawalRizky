@@ -6,7 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".TicketFragment"
     android:background="@color/background">
-
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="top"
+            android:background="@color/primary" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Daftar Pesanan"
+            style="@style/text_bold"
+            android:layout_marginTop="30dp"
+            android:textSize="24sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,9 +35,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_result"
             android:layout_gravity="bottom"
+            android:layout_marginTop="120dp"
             android:layout_alignParentBottom="true"
             android:padding="10dp"
-            tools:listitem="@layout/item_ticket_book" />
+            tools:listitem="@layout/item_ticket_detail" />
 
     </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </ScrollView>
