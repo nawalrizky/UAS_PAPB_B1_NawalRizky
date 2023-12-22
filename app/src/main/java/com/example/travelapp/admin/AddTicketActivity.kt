@@ -117,7 +117,7 @@ class AddTicketActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         val durasiPerjalanan = binding.durasiPerjalanan.text.toString()
         val tanggalBerangkat = binding.tanggalBerangkat.text.toString()
         val namaKereta = binding.namaKereta.text.toString()
-        val hargaTiket = binding.hargaTiket.text.toString()
+        val harga = binding.hargaTiket.text.toString()
 
         val ticket = Kereta(
             id = UUID.randomUUID().toString(),
@@ -130,7 +130,7 @@ class AddTicketActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             durasiPerjalanan = durasiPerjalanan,
             tanggalBerangkat = tanggalBerangkat,
             namaKereta = namaKereta,
-            harga = hargaTiket
+            harga = harga
         )
 
         if(this@AddTicketActivity != null) {

@@ -286,7 +286,12 @@ object DataKeretaGenerator {
 //            dataKereta(
 //                "Rp170.000", "Malang Kota Lama", "MLK", "11:00", "", "Argo Muria",
 //                "Gambir", "GMR", "14:30", "Eksekutif - B", "3 jam 30 menit", "2023-12-24"
+//            ),
+//            dataKereta(
+//                "Rp150.000", "Malang Kota Lama", "MLK", "12:00", "", "Argo Muria",
+//                "Gambir", "GMR", "15:00", "Eksekutif - B", "3 jam 30 menit", "2023-12-24"
 //            )
+
         )
     }
 }

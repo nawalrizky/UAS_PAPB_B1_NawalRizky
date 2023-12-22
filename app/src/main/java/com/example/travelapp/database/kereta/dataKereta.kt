@@ -1,7 +1,6 @@
 package com.example.travelapp.database.kereta
 
 data class dataKereta(
-    var id: String = "",  // Add this line for the id property
     var harga: String? = null,
     var stasiunKeberangkatan: String? = null,
     var kodeStasiunKeberangkatan: String? = null,
