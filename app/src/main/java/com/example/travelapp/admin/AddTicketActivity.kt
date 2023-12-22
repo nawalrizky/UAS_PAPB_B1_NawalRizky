@@ -1,5 +1,6 @@
 package com.example.travelapp.admin
 
+import AppDatabase
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.DatePicker
@@ -95,10 +96,12 @@ class AddTicketActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             harga = hargaTiket
         )
 
-        GlobalScope.launch(Dispatchers.IO) {
-            AppDatabase.getInstance(this@AddTicketActivity)?.keretaDao()?.upsert(ticket)
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@AddTicketActivity, "Ticket saved to Room", Toast.LENGTH_SHORT).show()
+        if(this@AddTicketActivity != null) {
+            GlobalScope.launch(Dispatchers.IO) {
+                AppDatabase.getInstance(this@AddTicketActivity)?.keretaDao()?.upsert(ticket)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AddTicketActivity, "Ticket saved to Room", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

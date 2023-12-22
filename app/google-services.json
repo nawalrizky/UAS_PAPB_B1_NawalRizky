@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "957266929756",
+    "project_id": "expressrail",
+    "storage_bucket": "expressrail.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957266929756:android:139794fad1ffcc60859e99",
+        "android_client_info": {
+          "package_name": "com.example.travelapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrpvO8mwtqD53kdmea0U42pPLOH8594a4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
