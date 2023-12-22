@@ -29,11 +29,46 @@ class AddTicketActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         binding = ActivityAddTicketBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Check for intent extras
+        val isEditMode = intent.hasExtra("harga")
+
+        if (isEditMode) {
+            // Edit mode: Pre-fill the data
+            prefillDataFromIntent()
+        }
+
         binding.btnAddTicket.setOnClickListener {
             saveDataToFirestore()
             saveDataToRoom()
         }
+
+        binding.tanggalBerangkat.setOnClickListener {
+            showDatePickerDialog()
+        }
     }
+
+    private fun prefillDataFromIntent() {
+        val harga = intent.getStringExtra("harga") ?: ""
+        val kelasKereta = intent.getStringExtra("kelasKereta") ?: ""
+        val namaKereta = intent.getStringExtra("namaKereta") ?: ""
+        val kodeStasiunKeberangkatan = intent.getStringExtra("kodeStasiunKeberangkatan") ?: ""
+        val jamBerangkat = intent.getStringExtra("jamBerangkat") ?: ""
+        val kodeStasiunTujuan = intent.getStringExtra("kodeStasiunTujuan") ?: ""
+        val jamTiba = intent.getStringExtra("jamTiba") ?: ""
+        val durasiPerjalanan = intent.getStringExtra("durasiPerjalanan") ?: ""
+        val tanggalBerangkat = intent.getStringExtra("tanggalBerangkat") ?: ""
+
+        binding.hargaTiket.setText(harga)
+        binding.kelasKereta.setText(kelasKereta)
+        binding.namaKereta.setText(namaKereta)
+        binding.kodeStasiunKeberangkatan.setText(kodeStasiunKeberangkatan)
+        binding.jamBerangkat.setText(jamBerangkat)
+        binding.kodeStasiunTujuan.setText(kodeStasiunTujuan)
+        binding.jamTiba.setText(jamTiba)
+        binding.durasiPerjalanan.setText(durasiPerjalanan)
+        binding.tanggalBerangkat.setText(tanggalBerangkat)
+    }
+
 
     private fun saveDataToFirestore() {
         val stasiunKeberangkatan = binding.stasiunKeberangkatan.text.toString()
@@ -98,7 +133,8 @@ class AddTicketActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
 
         if(this@AddTicketActivity != null) {
             GlobalScope.launch(Dispatchers.IO) {
-                AppDatabase.getInstance(this@AddTicketActivity)?.keretaDao()?.upsert(ticket)
+                val database = AppDatabase.getInstance(this@AddTicketActivity)
+                database?.keretaDao()?.upsert(ticket)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@AddTicketActivity, "Ticket saved to Room", Toast.LENGTH_SHORT).show()
                 }

@@ -104,12 +104,12 @@ class LoginFragment : Fragment() {
                             when (document.getString("role")) {
                                 "user" -> {
                                     Log.d(ContentValues.TAG, "user")
-                                    saveUserRole("user")
+                                    saveUserRole("user", document.getString("username") ?: "")
                                     navigateToMainPage()
                                 }
                                 "admin" -> {
                                     Log.d(ContentValues.TAG, "admin")
-                                    saveUserRole("admin")
+                                    saveUserRole("admin", document.getString("username") ?: "")
                                     navigateToAdminPage()
                                 }
                                 else -> {
@@ -126,28 +126,33 @@ class LoginFragment : Fragment() {
             }
     }
 
-    private fun saveUserRole(role: String) {
+
+
+
+
+    private fun saveUserRole(role: String, username: String) {
         with(sharedPreferences.edit()) {
             putString("userRole", role)
+            putString("username", username)
             apply()
         }
     }
 
-
-
-
     private fun navigateToMainPage() {
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
+        if (isAdded) { // Check if the fragment is attached
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
     }
 
     private fun navigateToAdminPage() {
-        val intent = Intent(requireContext(), AdminActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
+        if (isAdded) { // Check if the fragment is attached
+            val intent = Intent(requireContext(), AdminActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

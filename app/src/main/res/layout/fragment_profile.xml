@@ -24,6 +24,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guide"
                     android:layout_width="wrap_content"
@@ -49,6 +50,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.15"/>
                 <ImageView
+                    android:id="@+id/img_bg"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +58,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/guide"
                     android:background="@color/primary"
                     android:scaleType="fitXY"/>
+
                 <ImageView
                     android:id="@+id/img_profil"
                     android:layout_width="90dp"
@@ -73,35 +76,32 @@
                     app:layout_constraintTop_toBottomOf="@id/guide_4"
                     android:paddingHorizontal="25dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Username"
                         android:layout_marginBottom="5dp"
                         style="@style/text_regular"/>
+
                     <TextView
-                        android:id="@+id/txt_id_username"
+                        android:id="@+id/txt_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Username"
                         style="@style/text_semibold"
                         android:layout_marginBottom="20dp"/>
-                    <TextView
-                        android:id="@+id/txt_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:layout_marginBottom="5dp"
-                        style="@style/text_regular"/>
-                    <TextView
-                        android:id="@+id/txt_email_profile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="email@gmail.com"
-                        android:textSize="17sp"
-                        style="@style/text_regular"
-                        android:layout_marginBottom="20dp"/>
+
                 </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_logout"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@color/primary"
+                    android:src="@drawable/baseline_logout_24"
+                    tools:layout_editor_absoluteX="350dp"
+                    tools:layout_editor_absoluteY="28dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

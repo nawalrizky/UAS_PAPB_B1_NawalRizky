@@ -13,7 +13,7 @@ interface KeretaDao {
     fun getAll(): List<Kereta>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsert(kereta: Kereta)
+    suspend fun upsert(kereta: Kereta)
 
     @Update
     fun update(kereta: Kereta)

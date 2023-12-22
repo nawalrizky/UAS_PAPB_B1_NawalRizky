@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.travelapp.R
 import com.example.travelapp.admin.AddTicketActivity
 import com.example.travelapp.admin.KeretaAdminAdapter
+import com.example.travelapp.authentication.AuthActivity
 import com.example.travelapp.authentication.LoginFragment
 import com.example.travelapp.databinding.ActivityAdminBinding
 import com.example.travelapp.database.kereta.KeretaAdapter
@@ -45,7 +46,7 @@ class AdminActivity : AppCompatActivity() {
 
             FirebaseAuth.getInstance().signOut()
 
-            val intent = Intent(this, LoginFragment::class.java)
+            val intent = Intent(this, AuthActivity::class.java) // Replace AuthActivity with the correct activity that hosts LoginFragment
             startActivity(intent)
             finish()
         }

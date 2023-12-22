@@ -1,12 +1,12 @@
 package com.example.travelapp
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.travelapp.database.FirebaseUtil
 import com.example.travelapp.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -25,12 +25,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val currentUser = FirebaseUtil.getCurrentUser()
-        currentUser?.let {
-            FirebaseUtil.getUsername(it.uid) { username ->
-                binding.textUsername.text = "Halo, $username"
-            }
-        }
+
+        // Obtain SharedPreferences instance from the activity
+        val sharedPreferences = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+
+        val username = sharedPreferences.getString("username", "") ?: ""
+        binding.textUsername.text = "Halo, $username"
 
         with(binding) {
             viewPager2 = viewPager

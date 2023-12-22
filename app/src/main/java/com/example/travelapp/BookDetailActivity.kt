@@ -1,7 +1,11 @@
 package com.example.travelapp
 
-import android.app.PendingIntent
+import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -9,16 +13,19 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.travelapp.database.kereta.dataKereta
 import com.example.travelapp.databinding.ActivityBookDetailBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class BookDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookDetailBinding
     private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         // Get the data passed from the KeretaAdapter
         val harga = intent.getStringExtra("harga")
         val kelas = intent.getStringExtra("kelas")
@@ -96,7 +103,7 @@ class BookDetailActivity : AppCompatActivity() {
                 .add(pesananData)
                 .addOnSuccessListener { documentReference ->
                     println("DocumentSnapshot added with ID: ${documentReference.id}")
-
+                    
                 }
                 .addOnFailureListener { e ->
                     // Handle failure, e.g., show an error message
@@ -122,10 +129,36 @@ class BookDetailActivity : AppCompatActivity() {
             intent.putExtra("DURASI_PERJALANAN", durasiPerjalanan)
             intent.putExtra("TANGGAL_BERANGKAT", tanggalBerangkat)
 
+            // Create a notification channel
+            val channelId = "booking_success_channel"
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val name = "Booking Success"
+                val descriptionText = "Notification for successful booking"
+                val importance = NotificationManager.IMPORTANCE_DEFAULT
+                val channel = NotificationChannel(channelId, name, importance).apply {
+                    description = descriptionText
+                }
+                val notificationManager: NotificationManager =
+                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.createNotificationChannel(channel)
+            }
+
+            val builder = NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("Booking Success")
+                .setContentText("You have successfully booked the ticket")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+
+            showNotification(builder)
             // Start the TicketDetailActivity
             startActivity(intent)
         }
     }
-
+    @SuppressLint("MissingPermission")
+    fun showNotification(builder: NotificationCompat.Builder) {
+        with(NotificationManagerCompat.from(this@BookDetailActivity)) {
+            notify(0, builder.build())
+        }
+    }
 
 }
