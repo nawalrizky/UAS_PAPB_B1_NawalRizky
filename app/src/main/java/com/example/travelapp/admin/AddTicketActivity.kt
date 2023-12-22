@@ -80,7 +80,8 @@ class AddTicketActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         val durasiPerjalanan = binding.durasiPerjalanan.text.toString()
         val tanggalBerangkat = binding.tanggalBerangkat.text.toString()
         val namaKereta = binding.namaKereta.text.toString()
-        val hargaTiket = binding.hargaTiket.text.toString()
+        val harga = binding.hargaTiket.text.toString()
+        val kelasKereta = binding.kelasKereta.text.toString()
 
         val ticket = hashMapOf(
             "stasiunKeberangkatan" to stasiunKeberangkatan,
@@ -92,7 +93,8 @@ class AddTicketActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListene
             "durasiPerjalanan" to durasiPerjalanan,
             "tanggalBerangkat" to tanggalBerangkat,
             "namaKereta" to namaKereta,
-            "hargaTiket" to hargaTiket
+            "harga" to harga,
+            "kelasKereta" to kelasKereta,
         )
 
         firestore.collection("dataKereta")
