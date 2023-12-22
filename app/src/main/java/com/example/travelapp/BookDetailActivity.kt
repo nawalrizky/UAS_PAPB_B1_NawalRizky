@@ -1,11 +1,14 @@
 package com.example.travelapp
 
+import android.app.PendingIntent
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.travelapp.databinding.ActivityBookDetailBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -93,11 +96,14 @@ class BookDetailActivity : AppCompatActivity() {
                 .add(pesananData)
                 .addOnSuccessListener { documentReference ->
                     println("DocumentSnapshot added with ID: ${documentReference.id}")
+
                 }
                 .addOnFailureListener { e ->
                     // Handle failure, e.g., show an error message
                     println("Error adding document: $e")
                 }
+
+
 
             val intent = Intent(this, TicketDetailActivity::class.java)
 
@@ -120,4 +126,6 @@ class BookDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
 }

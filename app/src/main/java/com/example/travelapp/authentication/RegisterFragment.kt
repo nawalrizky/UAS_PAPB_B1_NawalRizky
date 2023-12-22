@@ -1,39 +1,45 @@
+package com.example.travelapp.authentication
+
 import android.app.DatePickerDialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.travelapp.MainActivity
 import com.example.travelapp.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
-import com.google.firebase.database.FirebaseDatabase
 
 class RegisterFragment : Fragment() {
     private val authViewModel: AuthViewModel by activityViewModels()
+    private lateinit var auth: FirebaseAuth
+    private val calendar = Calendar.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val roleCollectionRef = firestore.collection("data_role")
+    private val dataUserCollectionRef = firestore.collection("data_user")
+
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-
-    private val calendar = Calendar.getInstance()
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
-        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        auth = Firebase.auth
 
         binding.btnRegister.setOnClickListener {
             val username = binding.editTxtUsername.text.toString()
@@ -42,17 +48,40 @@ class RegisterFragment : Fragment() {
             val birthDate = binding.editTxtBirthdate.text.toString()
 
             if (validateInput(username, email, password, birthDate)) {
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val birthDateDate = sdf.parse(birthDate)
-
                 // Register user with Firebase Authentication
-                registerUser(username,email, password, birthDateDate)
+                registerUser(username, email, password, birthDate)
             }
         }
 
         binding.editTxtBirthdate.setOnClickListener {
             showDatePickerDialog()
         }
+    }
+
+    private fun registerUser(username: String, email: String, password: String, birthDate: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Registration success
+                    val user = auth.currentUser
+
+                    // Add user role
+                    addRole(RoleData(uid = user?.uid.toString(), username = username, role = "user"))
+
+                    // Add user data
+                    addDataUser(UserData(uid = user?.uid.toString(), username = username, email = email))
+
+                    // Signal the navigation event to the AuthViewModel
+                    authViewModel.navigateToLogin()
+                } else {
+                    // Registration failed
+                    Toast.makeText(
+                        requireContext(),
+                        "Registrasi gagal. Periksa kembali informasi Anda.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 
     private fun validateInput(
@@ -68,41 +97,15 @@ class RegisterFragment : Fragment() {
         return true
     }
 
-    private fun registerUser(username: String,email: String, password: String, birthDate: Date) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    // Registration success
-                    saveUserData(username,email, password, birthDate)
-
-                    // Signal the navigation event to the AuthViewModel
-                    authViewModel.navigateToLogin()
-                } else {
-                    // Registration failed
-                    Toast.makeText(
-                        requireContext(),
-                        "Registrasi gagal. Periksa kembali informasi Anda.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+    private fun addRole(dataRole: RoleData) {
+        roleCollectionRef.add(dataRole).addOnFailureListener {
+            Log.d("Register", "Error adding role : ")
+        }
     }
 
-    private fun saveUserData(username: String, email: String, password: String, birthDate: Date) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        if (userId != null) {
-            val database = FirebaseDatabase.getInstance()
-            val usersRef = database.getReference("users")
-
-            val user = hashMapOf(
-                "username" to username,
-                "email" to email,
-                "password" to password,
-                "birthDate" to birthDate.toString(), // Store the birth date as a string for simplicity
-                // Add other user data as needed
-            )
-
-            usersRef.child(userId).setValue(user)
+    private fun addDataUser(dataUser: UserData) {
+        dataUserCollectionRef.add(dataUser).addOnFailureListener {
+            Log.d("Register", "Error adding data user : ")
         }
     }
 

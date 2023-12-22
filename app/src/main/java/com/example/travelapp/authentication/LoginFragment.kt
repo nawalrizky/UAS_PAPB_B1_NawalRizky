@@ -1,7 +1,11 @@
+package com.example.travelapp.authentication
+
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +13,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.travelapp.MainActivity
+import com.example.travelapp.admin.AdminActivity
 import com.example.travelapp.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -21,6 +27,10 @@ class LoginFragment : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
+
+    private val firestore = FirebaseFirestore.getInstance()
+    private val userCollectionRef = firestore.collection("data_user")
+    private val roleCollectionRef = firestore.collection("data_role")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,8 +81,8 @@ class LoginFragment : Fragment() {
                         apply()
                     }
 
-                    // Navigation to the main page after successful login
-                    authViewModel.navigateToLogin()
+                    // Pemanggilan fungsi checkRole setelah login berhasil
+                    checkRole(auth.currentUser?.uid ?: "")
                 } else {
                     // Display an error message if login fails
                     Toast.makeText(
@@ -84,8 +94,56 @@ class LoginFragment : Fragment() {
             }
     }
 
+    private fun checkRole(uid: String) {
+        roleCollectionRef.whereEqualTo("uid", uid)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (!task.result?.isEmpty!!) {
+                        for (document in task.result.documents) {
+                            when (document.getString("role")) {
+                                "user" -> {
+                                    Log.d(ContentValues.TAG, "user")
+                                    saveUserRole("user")
+                                    navigateToMainPage()
+                                }
+                                "admin" -> {
+                                    Log.d(ContentValues.TAG, "admin")
+                                    saveUserRole("admin")
+                                    navigateToAdminPage()
+                                }
+                                else -> {
+                                    // Handle other roles if needed
+                                }
+                            }
+                        }
+                    } else {
+                        Log.d(ContentValues.TAG, "User not found in the role collection")
+                    }
+                } else {
+                    Log.e(ContentValues.TAG, "Error getting documents: ", task.exception)
+                }
+            }
+    }
+
+    private fun saveUserRole(role: String) {
+        with(sharedPreferences.edit()) {
+            putString("userRole", role)
+            apply()
+        }
+    }
+
+
+
+
     private fun navigateToMainPage() {
         val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
+    private fun navigateToAdminPage() {
+        val intent = Intent(requireContext(), AdminActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
     }

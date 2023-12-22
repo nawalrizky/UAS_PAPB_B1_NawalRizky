@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTicket"
+        android:layout_marginBottom="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+
+        app:cardBackgroundColor="@color/white"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp">
+            <LinearLayout
+                android:id="@+id/layout_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp">
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/kai_logo"/>
+
+                <TextView
+                    android:id="@+id/nama_kereta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="PT. Kereta Api Indonesia" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_title"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="15dp"
+
+                    >
+                    <TextView
+                        android:id="@+id/jam_keberangkatan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="11.00"
+                        android:textSize="22dp"
+                        style="@style/text_bold"/>
+                    <TextView
+                        android:id="@+id/kode_stasiun_keberangkatan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="JKT"
+                        style="@style/text_regular"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/img_train"
+                        android:layout_width="160dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/img_train" />
+
+                    <TextView
+                        android:id="@+id/waktu_perjalanan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5j 30m"
+                        android:layout_gravity="center_horizontal"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="15dp"
+                    >
+                    <TextView
+                        android:id="@+id/jam_tiba"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="11.00"
+                        android:textSize="22dp"
+                        style="@style/text_bold"/>
+                    <TextView
+                        android:id="@+id/kode_stasiun_tujuan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="JKT"
+                        style="@style/text_regular"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_dash"
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_dash"
+                android:layout_below="@id/layout_hour"/>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/layout_harga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_dash"
+                android:layout_marginHorizontal="15dp"
+                android:gravity="center_vertical">
+
+
+                <TextView
+                    android:id="@+id/harga_tiket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text=""
+                    android:textSize="18sp"
+                    style="@style/text_semibold"/>
+                <TextView
+                    android:id="@+id/kelas_kereta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ekonomi"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    style="@style/text_regular"
+                    android:textColor="@color/gray"/>
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/btn_edit"
+                android:layout_below="@+id/img_dash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btn_hapus"
+                android:background="@drawable/btn_txt_secondary"
+                android:src="@drawable/baseline_edit_24"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="10dp"
+
+                />
+            <ImageButton
+                android:id="@+id/btn_hapus"
+                android:layout_below="@+id/img_dash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_txt_secondary"
+                android:src="@drawable/baseline_delete_24"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"
+            />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

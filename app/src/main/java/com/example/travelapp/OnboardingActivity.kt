@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.example.travelapp.authentication.AuthActivity
+import com.example.travelapp.admin.AdminActivity
 import com.example.travelapp.databinding.ActivityOnboardingBinding
 
 class OnBoardingActivity : AppCompatActivity() {
@@ -23,8 +25,18 @@ class OnBoardingActivity : AppCompatActivity() {
         // Check the "Remember Me" status
         val rememberMe = sharedPreferences.getBoolean("rememberMe", false)
         if (rememberMe) {
-            // If "Remember Me" is true, go directly to MainActivity
-            startActivity(Intent(this, MainActivity::class.java))
+            // If "Remember Me" is true, check the user role
+            val userRole = sharedPreferences.getString("userRole", "")
+
+            // Navigate based on user role
+            when (userRole) {
+                "admin" -> {
+                    startActivity(Intent(this, AdminActivity::class.java))
+                }
+                else -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+            }
             finish()
         } else {
             // Otherwise, proceed with the regular onboarding flow
@@ -35,7 +47,7 @@ class OnBoardingActivity : AppCompatActivity() {
             // Your existing code for button click
             btnCreateAccount = binding.btnToRegister
             btnCreateAccount.setOnClickListener {
-                // Skip the login screen and go directly to MainActivity
+                // Skip the login screen and go directly to AuthActivity
                 startActivity(Intent(this, AuthActivity::class.java))
                 finish()
             }

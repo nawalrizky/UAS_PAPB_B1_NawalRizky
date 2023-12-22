@@ -1,5 +1,6 @@
 package com.example.travelapp.database
 
+import com.example.travelapp.authentication.UserData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot

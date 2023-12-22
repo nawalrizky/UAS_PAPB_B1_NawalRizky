@@ -1,8 +1,6 @@
-package com.example.travelapp
+package com.example.travelapp.authentication
 
 
-import LoginFragment
-import RegisterFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter

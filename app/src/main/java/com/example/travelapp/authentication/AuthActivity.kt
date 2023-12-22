@@ -1,5 +1,4 @@
-package com.example.travelapp
-import AuthViewModel
+package com.example.travelapp.authentication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.AddTicketActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="26dp"
+    android:background="@color/primary">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tambah Tiket"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppinsbold"
+        />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:layout_marginHorizontal="15dp"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stasiun Keberangkatan"
+            style="@style/text_semibold"
+            android:paddingBottom="3dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/stasiun_tujuan"
+            android:hint="Stasiun Tujuan"
+            android:background="@drawable/input_white"
+            android:padding="12dp"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp"
+            android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stasiun Tujuan"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/stasiun_keberangkatan"
+                android:hint="Stasiun Tujuan"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kode Stasiun Keberangkatan"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/kode_stasiun_keberangkatan"
+                android:hint="Kode Stasiun Keberangkatan"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kode Stasiun Tujuan"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/kode_stasiun_tujuan"
+                android:hint="Kode Stasiun Tujuan"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jam Berangkat"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/jam_berangkat"
+                android:hint="Jam Berangkat"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jam Tiba"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/jam_tiba"
+                android:hint="Jam Tiba"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Durasi Perjalanan"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/durasi_perjalanan"
+                android:hint="Durasi Perjalanan"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggal Berangkat"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tanggal_berangkat"
+                android:hint="yyyy-mm-dd"
+                android:inputType="date"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:onClick="showDatePickerDialog"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Kereta"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nama_kereta"
+                android:hint="Nama Kereta"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Harga Tiket"
+                style="@style/text_semibold"
+                android:paddingBottom="3dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/harga_tiket"
+                android:hint="Harga Tiket"
+                android:background="@drawable/input_white"
+                android:padding="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/gray"/>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_add_ticket"
+            android:text="Tambah Tiket"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_secondary"
+            style="@style/button_bold"/>
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

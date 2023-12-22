@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Travel App</string>
+    <string name="app_name">Express Rail</string>
 
 
     <string-array name="kelas_kereta">
